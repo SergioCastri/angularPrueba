@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import 'rxjs/add/operator/map'
+import { Http } from '@angular/http'
 
 @Component({
   selector: 'app-root',
@@ -6,5 +8,13 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'app';
+	api: string;
+	myData: Array<any>;
+
+	constructor(private http:Http){
+		this.api = 'https://api.mercadolibre.com/sites/MCO/search?q=carro';
+		this.http.get(this.api).map(response => response.json()).subscribe(res => this.myData = res);
+
+	}
 }
+	
